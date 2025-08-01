@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
@@ -51,7 +51,7 @@ requirements:
     - r-nanoarrow
     - r-wk
     - r-xml2
-    - libgdal-core
+    - libgdal
   run:
     - r-base
     - r-rcpp >=1.0.7
