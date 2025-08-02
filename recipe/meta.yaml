@@ -78,6 +78,8 @@ test:
     - r-codetools
     # FIXME: see temporary patch above for r-gt issues from r-v8
     # - r-gt
+    - libgdal-pg
+    - libgdal-postgisraster
   commands:
     - $R -e "library('gdalraster')"  # [not win]
     - $R -e "testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)"  # [not win]
