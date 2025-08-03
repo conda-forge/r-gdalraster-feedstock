@@ -10,10 +10,15 @@ source:
     - {{ cran_mirror }}/src/contrib/gdalraster_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gdalraster/gdalraster_{{ version }}.tar.gz
   sha256: 5a52e24e10e44163dfc366007a356dfc27f9d28353d557b507e46d119f3b6ef2
+  patches:
+    # FIXME: temporarily skip tests that require r-gt
+    # these are currently failing given issues with r-gt from r-v8
+    # c.f. https://github.com/conda-forge/r-v8-feedstock/issues/47
+    - patches/temp-test-skip-for-gt-issue.patch
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
@@ -66,18 +71,20 @@ test:
     - tests/
   requires:
     - r-testthat
-    # FIXME: Without codetools, gdalraster raises multiple warnings of form
+    # add "CRAN recommended" package codetools since conda-forge test with only r-base
+    # avoids gdalraster raising multiple warnings of form:
     # code for methods in class Rcpp_... was not checked for suspicious field assignments (recommended package ‘codetools’ not available?)
+    # cf. https://github.com/conda-forge/r-gdalraster-feedstock/pull/1#issuecomment-3138823999
     - r-codetools
-    # FIXME:
+    # FIXME: see temporary patch above for r-gt issues from r-v8
     # - r-gt
+    - libgdal-pg
+    - libgdal-postgisraster
   commands:
     - $R -e "library('gdalraster')"  # [not win]
-    # FIXME: Testing is failing given issues with r-gt from r-v8
-    # c.f. https://github.com/conda-forge/r-v8-feedstock/issues/47
-    # - $R -e "testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)"  # [not win]
+    - $R -e "testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)"  # [not win]
     - "\"%R%\" -e \"library('gdalraster')\""  # [win]
-    # - "\"%R%\" -e \"testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)\""  # [win]
+    - "\"%R%\" -e \"testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)\""  # [win]
 
 about:
   home: https://github.com/USDAForestService/gdalraster
