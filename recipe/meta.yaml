@@ -74,9 +74,9 @@ test:
     - r-gt
     - libgdal-pg
     - libgdal-postgisraster
-  script_env:
-    - NOT_CRAN=true
   commands:
+    - export NOT_CRAN=true  # [not win]
+    - "set NOT_CRAN=true"  # [win]
     - $R -e "library('gdalraster')"  # [not win]
     - $R -e "testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)"  # [not win]
     - "\"%R%\" -e \"library('gdalraster')\""  # [win]
