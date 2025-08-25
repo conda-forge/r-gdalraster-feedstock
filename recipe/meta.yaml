@@ -1,4 +1,4 @@
-{% set version = '2.1.0' %}
+{% set version = "2.2.0" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,16 +9,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/gdalraster_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gdalraster/gdalraster_{{ version }}.tar.gz
-  sha256: 5a52e24e10e44163dfc366007a356dfc27f9d28353d557b507e46d119f3b6ef2
-  patches:
-    # FIXME: temporarily skip tests that require r-gt
-    # these are currently failing given issues with r-gt from r-v8
-    # c.f. https://github.com/conda-forge/r-v8-feedstock/issues/47
-    - patches/temp-test-skip-for-gt-issue.patch
+  sha256: 814d9702954221a1f4ed7dc927fd33ea113e0327be8c996f1ef903eab228a771
 
 build:
   skip: true  # [win]
-  number: 2
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -76,11 +71,12 @@ test:
     # code for methods in class Rcpp_... was not checked for suspicious field assignments (recommended package ‘codetools’ not available?)
     # cf. https://github.com/conda-forge/r-gdalraster-feedstock/pull/1#issuecomment-3138823999
     - r-codetools
-    # FIXME: see temporary patch above for r-gt issues from r-v8
-    # - r-gt
+    - r-gt
     - libgdal-pg
     - libgdal-postgisraster
   commands:
+    - export NOT_CRAN=true  # [not win]
+    - "set NOT_CRAN=true"  # [win]
     - $R -e "library('gdalraster')"  # [not win]
     - $R -e "testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)"  # [not win]
     - "\"%R%\" -e \"library('gdalraster')\""  # [win]
@@ -89,31 +85,33 @@ test:
 about:
   home: https://github.com/USDAForestService/gdalraster
   license: MIT
-  summary: API bindings to the Geospatial Data Abstraction Library ('GDAL', <https://gdal.org>).
-    Implements the 'GDAL' Raster and Vector Data Models. Bindings are implemented with
-    'Rcpp' modules. Exposed C++ classes and stand-alone functions wrap much of the 'GDAL'
-    API and provide additional functionality. Calling signatures resemble the native
-    C, C++ and Python APIs provided by the 'GDAL' project. Class 'GDALRaster' encapsulates
-    a 'GDALDataset' and its raster band objects. Class 'GDALVector' encapsulates an
-    'OGRLayer' and the 'GDALDataset' that contains it. Class 'VSIFile' provides bindings
-    to the 'GDAL' 'VSIVirtualHandle' API. Additional classes include 'CmbTable' for
-    counting unique combinations of integers, and 'RunningStats' for computing summary
-    statistics efficiently on large data streams. C++ stand-alone functions provide
-    bindings to most 'GDAL' raster and vector utilities including 'OGR' facilities for
-    vector geoprocessing, several algorithms, the Geometry API ('GEOS' via 'GDAL' headers),
-    the Spatial Reference Systems API, and methods for coordinate transformation. Bindings
-    to the Virtual Systems Interface ('VSI') API implement standard file system operations,
-    abstracted for URLs, cloud storage services, 'Zip'/'GZip'/'7z'/'RAR', in-memory
-    files, as well as regular local file systems. This provides a single interface for
-    operating on file system objects that works the same for any storage backend. A
-    custom raster calculator evaluates a user-defined R expression on a layer or stack
-    of layers, with pixel x/y available as variables in the expression. Raster 'combine()'
-    identifies and counts unique pixel combinations across multiple input layers, with
-    optional raster output of the pixel-level combination IDs. Basic plotting capability
-    is provided for raster and vector display. 'gdalraster' leans toward minimalism
-    and the use of simple, lightweight objects for holding raw data. Currently, only
-    minimal S3 class interfaces have been implemented for selected R objects that contain
-    spatial data. 'gdalraster' may be useful in applications that need scalable, low-level
+  summary: API bindings to the Geospatial Data Abstraction Library ('GDAL',
+    <https://gdal.org>). Implements the 'GDAL' Raster and Vector Data Models.
+    Bindings are implemented with 'Rcpp' modules. Exposed C++ classes and
+    stand-alone functions wrap much of the 'GDAL' API and provide additional
+    functionality. Calling signatures resemble the native C, C++ and Python APIs
+    provided by the 'GDAL' project. Class 'GDALRaster' encapsulates a
+    'GDALDataset' and its raster band objects. Class 'GDALVector' encapsulates
+    an 'OGRLayer' and the 'GDALDataset' that contains it. Initial bindings are
+    provided to the unified 'gdal' command line interface added in 'GDAL' 3.11.
+    C++ stand-alone functions provide bindings to most 'GDAL' "traditional"
+    raster and vector utilities, including 'OGR' facilities for vector
+    geoprocessing, several algorithms, as well as the Geometry API ('GEOS' via
+    'GDAL' headers), the Spatial Reference Systems API, and methods for
+    coordinate transformation. Bindings to the Virtual Systems Interface ('VSI')
+    API implement standard file system operations abstracted for URLs, cloud
+    storage services, 'Zip'/'GZip'/'7z'/'RAR', in-memory files, as well as
+    regular local file systems. This provides a single interface for operating
+    on file system objects that works the same for any storage backend. A custom
+    raster calculator evaluates a user-defined R expression on a layer or stack
+    of layers, with pixel x/y available as variables in the expression. Raster
+    'combine()' identifies and counts unique pixel combinations across multiple
+    input layers, with optional raster output of the pixel-level combination
+    IDs. Basic plotting capability is provided for raster and vector display.
+    'gdalraster' leans toward minimalism and the use of simple, lightweight
+    objects for holding raw data. Currently, only minimal S3 class interfaces
+    have been implemented for selected R objects that contain spatial data.
+    'gdalraster' may be useful in applications that need scalable, low-level
     I/O, or prefer a direct 'GDAL' API.
   license_family: MIT
   license_file:
