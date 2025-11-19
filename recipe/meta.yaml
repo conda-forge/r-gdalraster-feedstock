@@ -31,6 +31,7 @@ requirements:
     - r-nanoarrow                  # [build_platform != target_platform]
     - r-wk                         # [build_platform != target_platform]
     - r-xml2                       # [build_platform != target_platform]
+    - r-yyjsonr                    # [build_platform != target_platform]
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ posix }}filesystem        # [win]
@@ -51,6 +52,7 @@ requirements:
     - r-nanoarrow
     - r-wk
     - r-xml2
+    - r-yyjsonr
     - libgdal-core
   run:
     - r-base
@@ -60,6 +62,7 @@ requirements:
     - r-nanoarrow
     - r-wk
     - r-xml2
+    - r-yyjsonr
 
 test:
   source_files:
