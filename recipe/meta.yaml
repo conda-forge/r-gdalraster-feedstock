@@ -44,11 +44,7 @@ requirements:
     - r-base
     - r-rcpp >=1.0.7
     - r-rcppint64
-    - r-bit64
     - r-nanoarrow
-    - r-wk
-    - r-xml2
-    - r-yyjsonr
     - libgdal-core
   run:
     - r-base
