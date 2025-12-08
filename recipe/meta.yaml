@@ -34,19 +34,22 @@ requirements:
     - r-xml2                       # [build_platform != target_platform]
     - r-yyjsonr                    # [build_platform != target_platform]
     - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}        # [not win]
-    - {{ compiler('r_clang') }}    # [win]
+    - {{ compiler("c") }}
+    - {{ stdlib("cxx") }}
+    - {{ compiler('cxx') }}
+    - pkg-config
+    - {{ posix }}make
     - {{ posix }}filesystem        # [win]
-    - {{ posix }}sed               # [win]
     - {{ posix }}grep              # [win]
+    - {{ posix }}sed               # [win]
     - {{ posix }}autoconf
     - {{ posix }}automake          # [not win]
     - {{ posix }}automake-wrapper  # [win]
-    - pkg-config
-    - {{ posix }}make
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
+    - pkg-config  # [win]
+    - libgdal-core
     - r-base
     - r-rcpp >=1.0.7
     - r-rcppint64
@@ -55,9 +58,6 @@ requirements:
     - r-wk
     - r-xml2
     - r-yyjsonr
-    - geos
-    - proj
-    - libgdal-core
   run:
     - r-base
     - r-rcpp >=1.0.7
