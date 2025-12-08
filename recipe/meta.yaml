@@ -35,7 +35,6 @@ requirements:
     - r-yyjsonr                    # [build_platform != target_platform]
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
-    - {{ stdlib("cxx") }}
     - {{ compiler('cxx') }}
     - pkg-config
     - {{ posix }}make
