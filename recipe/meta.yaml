@@ -28,6 +28,7 @@ requirements:
     - r-rcpp                       # [build_platform != target_platform]
     - r-rcppint64                  # [build_platform != target_platform]
     - r-bit64                      # [build_platform != target_platform]
+    - r-cli                        # [build_platform != target_platform]
     - r-nanoarrow                  # [build_platform != target_platform]
     - r-wk                         # [build_platform != target_platform]
     - r-xml2                       # [build_platform != target_platform]
@@ -49,6 +50,7 @@ requirements:
     - r-rcpp >=1.0.7
     - r-rcppint64
     - r-bit64
+    - r-cli
     - r-nanoarrow
     - r-wk
     - r-xml2
@@ -59,6 +61,7 @@ requirements:
     - r-rcpp >=1.0.7
     - r-rcppint64
     - r-bit64
+    - r-cli
     - r-nanoarrow
     - r-wk
     - r-xml2
