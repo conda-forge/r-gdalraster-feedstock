@@ -1,4 +1,4 @@
-{% set version = "2.5.0" %}
+{% set version = "2.6.0" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,7 +9,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/gdalraster_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gdalraster/gdalraster_{{ version }}.tar.gz
-  sha256: d70937c457f17aafcf34c794d3abb60603537336ac93b1dc70264a43d1ce037e
+  sha256: decedf680dad1f289686cb09576c7f8c8a26d7af0411b3922164ada420752129
 
 build:
   skip: true  # [win]
