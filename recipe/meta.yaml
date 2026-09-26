@@ -34,12 +34,9 @@ requirements:
     - r-wk                         # [build_platform != target_platform]
     - r-xml2                       # [build_platform != target_platform]
     - r-yyjsonr                    # [build_platform != target_platform]
-    - {{ compiler('c') }}          # [not win]
-    - {{ stdlib("c") }}            # [not win]
-    - {{ compiler('m2w64_c') }}    # [win]
-    - {{ stdlib("m2w64_c") }}      # [win]
-    - {{ compiler('cxx') }}        # [not win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ stdlib("c") }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('r_clang') }}    # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}sed               # [win]
     - {{ posix }}grep              # [win]
@@ -49,7 +46,6 @@ requirements:
     - pkg-config
     - {{ posix }}make
     - {{ posix }}coreutils         # [win]
-    - {{ posix }}which             # [win]
     - {{ posix }}zip               # [win]
   host:
     - r-base
