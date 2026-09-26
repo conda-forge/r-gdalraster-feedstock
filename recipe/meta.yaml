@@ -10,10 +10,11 @@ source:
     - {{ cran_mirror }}/src/contrib/gdalraster_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gdalraster/gdalraster_{{ version }}.tar.gz
   sha256: 57c231c57ae6c25ce144396c520dfc400465d9257e7b0bf2faa9b7c4b806fcc5
+  patches:
+    - patches/min-ucrt-libs.patch
 
 build:
-  skip: true  # [win]
-  number: 0
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
@@ -35,6 +36,7 @@ requirements:
     - r-yyjsonr                    # [build_platform != target_platform]
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
+    - {{ compiler('r_clang') }}    # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}sed               # [win]
     - {{ posix }}grep              # [win]
