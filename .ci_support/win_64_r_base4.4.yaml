@@ -1,15 +1,23 @@
-c_stdlib:
-- vs
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cran_mirror:
 - https://cloud.r-project.org
-cxx_compiler:
-- vs2022
 libgdal_core:
 - '3.13'
+m2w64_c_compiler:
+- gcc
+m2w64_c_compiler_version:
+- '15'
+m2w64_c_stdlib:
+- m2w64-sysroot
+m2w64_c_stdlib_version:
+- '12'
+m2w64_cxx_compiler:
+- gxx
+m2w64_cxx_compiler_version:
+- '15'
 pin_run_as_build:
   r-base:
     min_pin: x.x
