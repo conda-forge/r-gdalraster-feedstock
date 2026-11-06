@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
@@ -90,7 +90,7 @@ test:
     - "\"%R%\" -e \"testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)\""  # [win]
 
 about:
-  home: https://github.com/USDAForestService/gdalraster
+  home: https://github.com/firelab/gdalraster
   license: MIT
   summary: API bindings to the Geospatial Data Abstraction Library ('GDAL', <https://gdal.org>). Implements the 'GDAL' Raster and Vector Data Models. Bindings are implemented with 'Rcpp' modules. Exposed C++ classes and stand-alone functions wrap much of the 'GDAL' API and provide additional functionality. Calling 
     signatures resemble the native C, C++ and Python APIs provided by the 'GDAL' project. Class 'GDALRaster' encapsulates a 'GDALDataset' and its raster band objects. Class 'GDALVector' encapsulates an 'OGRLayer' and the 'GDALDataset' that contains it. Initial bindings are provided to the unified 'gdal' command line 
@@ -102,8 +102,8 @@ about:
   license_family: MIT
   license_file:
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/MIT'
-  dev_url: https://github.com/USDAForestService/gdalraster
-  doc_url: https://usdaforestservice.github.io/gdalraster/
+  dev_url: https://github.com/firelab/gdalraster
+  doc_url: https://firelab.github.io/gdalraster/
 
 extra:
   recipe-maintainers:
