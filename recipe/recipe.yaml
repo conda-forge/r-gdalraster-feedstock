@@ -1,0 +1,161 @@
+schema_version: 1
+
+context:
+  version: "2.7.0"
+
+package:
+  name: r-gdalraster
+  version: ${{ version }}
+
+source:
+  url:
+    - ${{ cran_mirror }}/src/contrib/gdalraster_${{ version }}.tar.gz
+    - ${{ cran_mirror }}/src/contrib/Archive/gdalraster/gdalraster_${{ version }}.tar.gz
+  sha256: 57c231c57ae6c25ce144396c520dfc400465d9257e7b0bf2faa9b7c4b806fcc5
+
+build:
+  number: 2
+  skip: win
+  script:
+    - if: win
+      then: ${{ R }} CMD INSTALL --build . %R_ARGS%
+      else: ${{ R }} CMD INSTALL --build . ${R_ARGS}
+  dynamic_linking:
+    rpaths:
+      - lib/R/lib/
+      - lib/
+    overlinking_behavior: error
+    missing_dso_allowlist:
+      - if: win
+        then:
+          - "*/R.dll"
+          - "*/Rblas.dll"
+          - "*/Rlapack.dll"
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then:
+        - cross-r-base ${{ r_base }}.*
+        - r-rcpp
+        - r-rcppint64
+        - r-bit64
+        - r-cli
+        - r-nanoarrow
+        - r-wk
+        - r-xml2
+        - r-yyjsonr
+    - ${{ stdlib("c") }}
+    - ${{ compiler("cxx") }}
+    - pkgconf
+    - if: win
+      then:
+        - m2-filesystem
+        - m2-sed
+        - m2-grep
+        - m2-autoconf
+        - m2-automake-wrapper
+        - m2-make
+        - m2-coreutils
+        - m2-zip
+      else:
+        - autoconf
+        - automake
+        - make
+  host:
+    - r-base
+    - r-rcpp >=1.0.7
+    - r-rcppint64
+    - r-bit64
+    - r-cli
+    - r-nanoarrow
+    - r-wk
+    - r-xml2
+    - r-yyjsonr
+    - libgdal-core
+  run:
+    - r-base
+    - r-rcpp >=1.0.7
+    - r-rcppint64
+    - r-bit64
+    - r-cli
+    - r-nanoarrow
+    - r-wk
+    - r-xml2
+    - r-yyjsonr
+
+tests:
+  - r:
+      libraries:
+        - gdalraster
+  - files:
+      source:
+        - tests/
+    requirements:
+      run:
+        - r-testthat >=3.0.0
+        # add "CRAN recommended" package codetools since conda-forge test with only r-base
+        # avoids gdalraster raising multiple warnings of form:
+        # code for methods in class Rcpp_... was not checked for suspicious field assignments (recommended package ‘codetools’ not available?)
+        # cf. https://github.com/conda-forge/r-gdalraster-feedstock/pull/1#issuecomment-3138823999
+        - r-codetools
+        - r-gt
+        - libgdal-arrow-parquet
+        - libgdal-netcdf
+        - libgdal-pg
+        - libgdal-postgisraster
+    script:
+      env:
+        NOT_CRAN: "true"
+      content:
+        - Rscript -e "testthat::test_file('tests/testthat.R', stop_on_failure=TRUE)"
+
+about:
+  homepage: https://github.com/firelab/gdalraster
+  summary: Bindings to 'GDAL'
+  description: |-
+    API bindings to the Geospatial Data Abstraction Library
+    ('GDAL', <https://gdal.org>). Implements the 'GDAL' Raster and
+    Vector Data Models. Bindings are implemented with 'Rcpp'
+    modules. Exposed C++ classes and stand-alone functions wrap
+    much of the 'GDAL' API and provide additional functionality.
+    Calling signatures resemble the native C, C++ and Python APIs
+    provided by the 'GDAL' project. Class 'GDALRaster' encapsulates
+    a 'GDALDataset' and its raster band objects. Class 'GDALVector'
+    encapsulates an 'OGRLayer' and the 'GDALDataset' that contains
+    it. Initial bindings are provided to the unified 'gdal' command
+    line interface added in 'GDAL' 3.11. C++ stand-alone functions
+    provide bindings to most 'GDAL' "traditional" raster and vector
+    utilities, including 'OGR' facilities for vector geoprocessing,
+    several algorithms, as well as the Geometry API ('GEOS' via
+    'GDAL' headers), the Spatial Reference Systems API, and methods
+    for coordinate transformation. Bindings to the Virtual Systems
+    Interface ('VSI') API implement standard file system operations
+    abstracted for URLs, cloud storage services,
+    'Zip'/'GZip'/'7z'/'RAR', in-memory files, as well as regular
+    local file systems. This provides a single interface for
+    operating on file system objects that works the same for any
+    storage backend. A custom raster calculator evaluates a
+    user-defined R expression on a layer or stack of layers, with
+    pixel x/y available as variables in the expression. Raster
+    'combine()' identifies and counts unique pixel combinations
+    across multiple input layers, with optional raster output of
+    the pixel-level combination IDs. Basic plotting capability is
+    provided for raster and vector display. 'gdalraster' leans
+    toward minimalism and the use of simple, lightweight objects
+    for holding raw data. Currently, only minimal S3 class
+    interfaces have been implemented for selected R objects that
+    contain spatial data. 'gdalraster' may be useful in
+    applications that need scalable, low-level I/O, or prefer a
+    direct 'GDAL' API.
+  license: MIT
+  license_file:
+    - ${{ PREFIX }}/lib/R/share/licenses/MIT
+    - LICENSE
+  repository: https://github.com/firelab/gdalraster
+  documentation: https://firelab.github.io/gdalraster/
+
+extra:
+  recipe-maintainers:
+    - conda-forge/r
+    - ctoney

@@ -3,32 +3,50 @@ About r-gdalraster-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-gdalraster-feedstock/blob/main/LICENSE.txt)
 
-
-About r-gdalraster
-------------------
-
 Home: https://github.com/firelab/gdalraster
 
 Package license: MIT
 
-Summary: API bindings to the Geospatial Data Abstraction Library ('GDAL', <https://gdal.org>). Implements the 'GDAL' Raster and Vector Data Models. Bindings are implemented with 'Rcpp' modules. Exposed C++ classes and stand-alone functions wrap much of the 'GDAL' API and provide additional functionality. Calling signatures resemble the native C, C++ and Python APIs provided by the 'GDAL' project. Class 'GDALRaster' encapsulates a 'GDALDataset' and its raster band objects. Class 'GDALVector' encapsulates an 'OGRLayer' and the 'GDALDataset' that contains it. Initial bindings are provided to the unified 'gdal' command line interface added in 'GDAL' 3.11. C++ stand-alone functions provide bindings to most 'GDAL' "traditional" raster and vector utilities, including 'OGR' facilities for vector geoprocessing, several algorithms, as well as the Geometry API ('GEOS' via 'GDAL' headers), the Spatial Reference Systems API, and methods for coordinate transformation. Bindings to the Virtual Systems Interface ('VSI') API implement standard file system operations abstracted for URLs, cloud storage services, 'Zip'/'GZip'/'7z'/'RAR', in-memory files, as well as regular local file systems. This provides a single interface for operating on file system objects that works the same for any storage backend. A custom raster calculator evaluates a user-defined R expression on a layer or stack of layers, with pixel x/y available as variables in the expression. Raster 'combine()' identifies and counts unique pixel combinations across multiple input layers, with optional raster output of the pixel-level combination IDs. Basic plotting capability is provided for raster and vector display. 'gdalraster' leans toward minimalism and the use of simple, lightweight objects for holding raw data. Currently, only minimal S3 class interfaces have been implemented for selected R objects that contain spatial data. 'gdalraster' may be useful in applications that need scalable, low-level I/O, or prefer a direct 'GDAL' API.
+Summary: Bindings to 'GDAL'
 
 Development: https://github.com/firelab/gdalraster
 
 Documentation: https://firelab.github.io/gdalraster/
 
-About r-gdalraster
-------------------
-
-Home: https://github.com/firelab/gdalraster
-
-Package license: MIT
-
-Summary: API bindings to the Geospatial Data Abstraction Library ('GDAL', <https://gdal.org>). Implements the 'GDAL' Raster and Vector Data Models. Bindings are implemented with 'Rcpp' modules. Exposed C++ classes and stand-alone functions wrap much of the 'GDAL' API and provide additional functionality. Calling signatures resemble the native C, C++ and Python APIs provided by the 'GDAL' project. Class 'GDALRaster' encapsulates a 'GDALDataset' and its raster band objects. Class 'GDALVector' encapsulates an 'OGRLayer' and the 'GDALDataset' that contains it. Initial bindings are provided to the unified 'gdal' command line interface added in 'GDAL' 3.11. C++ stand-alone functions provide bindings to most 'GDAL' "traditional" raster and vector utilities, including 'OGR' facilities for vector geoprocessing, several algorithms, as well as the Geometry API ('GEOS' via 'GDAL' headers), the Spatial Reference Systems API, and methods for coordinate transformation. Bindings to the Virtual Systems Interface ('VSI') API implement standard file system operations abstracted for URLs, cloud storage services, 'Zip'/'GZip'/'7z'/'RAR', in-memory files, as well as regular local file systems. This provides a single interface for operating on file system objects that works the same for any storage backend. A custom raster calculator evaluates a user-defined R expression on a layer or stack of layers, with pixel x/y available as variables in the expression. Raster 'combine()' identifies and counts unique pixel combinations across multiple input layers, with optional raster output of the pixel-level combination IDs. Basic plotting capability is provided for raster and vector display. 'gdalraster' leans toward minimalism and the use of simple, lightweight objects for holding raw data. Currently, only minimal S3 class interfaces have been implemented for selected R objects that contain spatial data. 'gdalraster' may be useful in applications that need scalable, low-level I/O, or prefer a direct 'GDAL' API.
-
-Development: https://github.com/firelab/gdalraster
-
-Documentation: https://firelab.github.io/gdalraster/
+API bindings to the Geospatial Data Abstraction Library
+('GDAL', <https://gdal.org>). Implements the 'GDAL' Raster and
+Vector Data Models. Bindings are implemented with 'Rcpp'
+modules. Exposed C++ classes and stand-alone functions wrap
+much of the 'GDAL' API and provide additional functionality.
+Calling signatures resemble the native C, C++ and Python APIs
+provided by the 'GDAL' project. Class 'GDALRaster' encapsulates
+a 'GDALDataset' and its raster band objects. Class 'GDALVector'
+encapsulates an 'OGRLayer' and the 'GDALDataset' that contains
+it. Initial bindings are provided to the unified 'gdal' command
+line interface added in 'GDAL' 3.11. C++ stand-alone functions
+provide bindings to most 'GDAL' "traditional" raster and vector
+utilities, including 'OGR' facilities for vector geoprocessing,
+several algorithms, as well as the Geometry API ('GEOS' via
+'GDAL' headers), the Spatial Reference Systems API, and methods
+for coordinate transformation. Bindings to the Virtual Systems
+Interface ('VSI') API implement standard file system operations
+abstracted for URLs, cloud storage services,
+'Zip'/'GZip'/'7z'/'RAR', in-memory files, as well as regular
+local file systems. This provides a single interface for
+operating on file system objects that works the same for any
+storage backend. A custom raster calculator evaluates a
+user-defined R expression on a layer or stack of layers, with
+pixel x/y available as variables in the expression. Raster
+'combine()' identifies and counts unique pixel combinations
+across multiple input layers, with optional raster output of
+the pixel-level combination IDs. Basic plotting capability is
+provided for raster and vector display. 'gdalraster' leans
+toward minimalism and the use of simple, lightweight objects
+for holding raw data. Currently, only minimal S3 class
+interfaces have been implemented for selected R objects that
+contain spatial data. 'gdalraster' may be useful in
+applications that need scalable, low-level I/O, or prefer a
+direct 'GDAL' API.
 
 Current build status
 ====================
@@ -66,6 +84,20 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=26280&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/r-gdalraster-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_r_base4.5" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_r_base4.4</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=26280&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/r-gdalraster-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_r_base4.4" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_r_base4.5</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=26280&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/r-gdalraster-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_r_base4.5" alt="variant">
                 </a>
               </td>
             </tr>
